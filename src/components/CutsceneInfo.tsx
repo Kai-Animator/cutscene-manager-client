@@ -1,13 +1,30 @@
 import axios from 'axios';
-import { useContext, useEffect, useState } from 'react';
-import { DisplayContext } from '../App';
+import { useEffect, useState } from 'react';
 import CutsCards from './CutsCards';
+import Settings from './Settings';
 
 interface Props {
   cs_code: string;
+  setIsSettings: React.Dispatch<React.SetStateAction<boolean>>;
+  isSettings: boolean;
+  setIsCsInfo: (i: boolean | string) => void;
+  setRefresh: React.Dispatch<React.SetStateAction<boolean>>;
+  refresh: boolean;
 }
 
-function CutsceneInfo({ cs_code }: Props) {
+const tailBackButton: string =
+  'text-white bg-slate-500 w-1/4 rounded m-4 p-1 hover:bg-red-700';
+const tailAddButton: string =
+  'text-white bg-blue-500 w-1/4 rounded m-4 p-1 hover:bg-white hover:text-blue-500';
+
+function CutsceneInfo({
+  cs_code,
+  setIsSettings,
+  isSettings,
+  setIsCsInfo,
+  setRefresh,
+  refresh,
+}: Props) {
   const [csInfo, setCsInfo] = useState<boolean | {}[]>(false);
   const [cutsInfo, setCutsInfo] = useState<any>(false);
 
@@ -21,7 +38,7 @@ function CutsceneInfo({ cs_code }: Props) {
     await axios(`http://localhost:4000/cutscenes/${cs_code}/cuts`).then((res) =>
       setCutsInfo(res.data)
     );
-    console.log(cutsInfo);
+    refresh && setRefresh(false)
   }
 
   useEffect(() => {
@@ -31,6 +48,18 @@ function CutsceneInfo({ cs_code }: Props) {
   useEffect(() => {
     getCuts();
   }, [csInfo]);
+
+  useEffect(() => {
+    getCuts();
+  }, [refresh]);
+
+  function handleNewCut() {
+    setIsSettings(true);
+  }
+
+  function handleBack() {
+    setIsCsInfo(false);
+  }
 
   return (
     <div>
@@ -61,11 +90,35 @@ function CutsceneInfo({ cs_code }: Props) {
           <tbody>
             {cutsInfo &&
               cutsInfo.map((cut: any, index: any): JSX.Element => {
-                return <CutsCards key={index} {...cut} />;
+                return (
+                  <CutsCards
+                    key={index}
+                    {...cut}
+                    setIsSettings={setIsSettings}
+                    setRefresh={setRefresh}
+                  />
+                );
               })}
           </tbody>
         </table>
       </div>
+      <div className='button-container flex justify-around'>
+        <button
+          className={`add-cs-button ${tailAddButton}`}
+          onClick={handleNewCut}
+        >
+          Add Cut
+        </button>
+        <button
+          className={`add-cs-button ${tailBackButton}`}
+          onClick={handleBack}
+        >
+          Back to Cutscenes
+        </button>
+      </div>
+      {isSettings && (
+        <Settings setIsSettings={setIsSettings} cs_code={cs_code} setRefresh={setRefresh} />
+      )}
     </div>
   );
 }

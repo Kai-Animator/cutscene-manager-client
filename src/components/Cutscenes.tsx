@@ -16,9 +16,14 @@ interface AxiosCs {
   }[];
 }
 
-function Cutscenes() {
+interface Props {
+  isSettings: boolean
+  setIsSettings: React.Dispatch<React.SetStateAction<boolean>>;
+  setRefresh: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+function Cutscenes({isSettings, setIsSettings, setRefresh}: Props) {
   const [allCsInfo, setAllCsInfo] = useState<any | null>(null);
-  const [isSettings, setIsSettings] = useState<boolean>(false);
 
   useEffect(() => {
     getAllCutscenes();
@@ -61,7 +66,7 @@ function Cutscenes() {
           </tbody>
         </table>
       </div>
-      {isSettings && <Settings setIsSettings={setIsSettings} />}
+      {isSettings && <Settings setIsSettings={setIsSettings} setRefresh={setRefresh}/>}
       <button
         className={`add-cs-button ${tailAddButton}`}
         onClick={handleNewScene}
