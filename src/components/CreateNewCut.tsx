@@ -39,7 +39,7 @@ function CreateNewCut({ setIsSettings, cs_code , setRefresh}: Props) {
   function handleSubmit(e: { preventDefault: () => void }): void {
     const newObj: any = newCutInfo;
     newObj['cs_code'] = cs_code
-    axios.post(`http://localhost:4000/cutscenes/${cs_code}/cuts`, newObj);
+    axios.post(`https://csmanager-server.onrender.com/cutscenes/${cs_code}/cuts`, newObj);
     setIsSettings(false);
     setRefresh(true)
     e.preventDefault();
