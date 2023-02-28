@@ -23,6 +23,7 @@ Created to help integrate production team with designers making it easy for proj
   * Login Page
   * User privileges to edit pages
   * Routes
+  * Data Validation on Forms
 
 * Cutscene Info Page
   * Grid view with other informations about the cutscene
@@ -34,8 +35,3 @@ Created to help integrate production team with designers making it easy for proj
   * Edit Cutscene Info
   * Delete Cutscene
   * Select option refering to users(for animators)
-
-## License
-
-This project is licensed under the [NAME HERE] License - see the LICENSE.md file for details
-
