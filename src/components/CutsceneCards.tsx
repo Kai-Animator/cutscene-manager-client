@@ -7,11 +7,6 @@ interface Props {
   scene_status: string;
 }
 
-const tailCsCard: string =
-  'bg-slate-700 text-white w-5/6 h-1/5 p-2 mt-1 rounded hover:bg-slate-600 cursor-pointer hover:scale-103 flex flex-col items-center justify-center';
-const tailCardTop: string = 'h-1/4 flex place-content-between w-full';
-const tailCardBot: string = 'h-3/4 w-full';
-
 function CutsceneCards({ cs_name, cs_code, scene_status }: Props) {
   const { setIsCsInfo } = useContext(DisplayContext);
 
@@ -20,15 +15,17 @@ function CutsceneCards({ cs_name, cs_code, scene_status }: Props) {
   }
 
   return (
-    <div className={`cs-card-container ${tailCsCard}`} onClick={handleChange}>
-      <div className={`card-top ${tailCardTop}`}>
-        <p>{cs_code}</p>
-        <p>{scene_status}</p>
-      </div>
-      <div className={`card-bot ${tailCardBot}`}>
-        <h1>{cs_name}</h1>
-      </div>
-    </div>
+            <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 mt-2 mb-2 cursor-pointer" onClick={handleChange}>
+                <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                   {cs_code}
+                </th>
+                <td className="px-6 py-4">
+                    {cs_name}
+                </td>
+                <td className="px-6 py-4">
+                    {scene_status}
+                </td>
+            </tr>
   );
 }
 

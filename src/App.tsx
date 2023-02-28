@@ -2,12 +2,14 @@ import { useState, createContext } from 'react';
 import CutsceneInfo from './components/CutsceneInfo';
 import Cutscenes from './components/Cutscenes';
 
-interface DisplayContext {
+interface DisplayContextTypes {
   setIsCsInfo: (i: boolean) => void;
+  isCsInfo: boolean
 }
 
-export const DisplayContext = createContext<DisplayContext>({
+export const DisplayContext = createContext<DisplayContextTypes>({
   setIsCsInfo: () => {},
+  isCsInfo: false
 });
 
 function Home() {
@@ -18,8 +20,8 @@ function Home() {
 
   return (
     <div className={`Home ${tailHome}`}>
-      <h1 className=''>Cutscene Manager</h1>
-      <DisplayContext.Provider value={{ setIsCsInfo }}>
+      <h1 className='font-bold text-4xl'>Cutscene Manager</h1>
+      <DisplayContext.Provider value={{ setIsCsInfo, isCsInfo }}>
         {isCsInfo ? <CutsceneInfo /> : <Cutscenes />}
       </DisplayContext.Provider>
     </div>

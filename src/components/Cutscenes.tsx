@@ -1,9 +1,12 @@
 import axios from 'axios';
-import { useEffect, useState } from 'react';
+import { MouseEvent, useEffect, useState } from 'react';
+import Settings from './Settings';
 import CutsceneCards from './CutsceneCards';
 
-const tailCsContainer: string =
-  'bg-slate-100 h-2/3 w-3/5 text-slate rounded flex items-center flex-col pt-6';
+// const tailCsContainer: string =
+//   'bg-slate-200 h-2/3 w-4/5 text-slate rounded flex items-center flex-col pt-6';
+const tailAddButton: string =
+  'text-white bg-slate-500 w-1/4 rounded m-4 p-1 hover:bg-slate-700';
 
 interface AxiosCs {
   data: {
@@ -15,6 +18,11 @@ interface AxiosCs {
 
 function Cutscenes() {
   const [allCsInfo, setAllCsInfo] = useState<any | null>(null);
+  const [isSettings, setIsSettings] = useState<boolean>(false);
+
+  useEffect(() => {
+    getAllCutscenes();
+  }, [isSettings]);
 
   async function getAllCutscenes(): Promise<void> {
     const allCutscenes: AxiosCs = await axios(
@@ -23,15 +31,43 @@ function Cutscenes() {
     setAllCsInfo(allCutscenes.data);
   }
 
-  useEffect(() => {
-    getAllCutscenes();
-  }, []);
+  function handleNewScene(e: MouseEvent): void {
+    setIsSettings(true);
+    e.preventDefault();
+  }
 
   return (
-    <div className={`cutscenes-container ${tailCsContainer}`}>
-      {allCsInfo && allCsInfo.map((cutscene, index) => {
-        return <CutsceneCards key={index} {...cutscene} />;
-      })}
+    <div className={`cutscenes-container flex flex-col items-center`}>
+      <div className='relative overflow-x-auto shadow-md sm:rounded-lg'>
+        <table className='w-full text-sm text-left text-gray-500 dark:text-gray-400'>
+          <thead className='text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400'>
+            <tr>
+              <th scope='col' className='px-6 py-3'>
+                Cutscene Code
+              </th>
+              <th scope='col' className='px-6 py-3'>
+                Cutscene Name
+              </th>
+              <th scope='col' className='px-6 py-3'>
+                Cutscene Status
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {allCsInfo &&
+              allCsInfo.map((cutscene: any, index: any): JSX.Element => {
+                return <CutsceneCards key={index} {...cutscene} />;
+              })}
+          </tbody>
+        </table>
+      </div>
+      {isSettings && <Settings setIsSettings={setIsSettings} />}
+      <button
+        className={`add-cs-button ${tailAddButton}`}
+        onClick={handleNewScene}
+      >
+        Add Cutscene
+      </button>
     </div>
   );
 }
