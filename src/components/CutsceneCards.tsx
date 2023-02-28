@@ -11,7 +11,7 @@ function CutsceneCards({ cs_name, cs_code, scene_status }: Props) {
   const { setIsCsInfo } = useContext(DisplayContext);
 
   function handleChange(): void {
-    setIsCsInfo(true);
+    setIsCsInfo(cs_code);
   }
 
   return (
