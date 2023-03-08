@@ -16,30 +16,39 @@ const tailButton: string =
   'text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800';
 
 interface CsInfoTypes {
-  cs_code: string;
-  cs_name: string;
-  start_date: any;
-  end_date: any;
-  due_date: any;
+  csCode: string;
+  csName: string;
+  startDate: any;
+  endDate: any;
+  dueDate: any;
   director: string;
-  scene_status: string;
-  total_cuts: string | number;
+  sceneStatus: string;
+  totalCuts: string | number;
 }
 
 function CreateNewScene({ setIsSettings }: Props) {
   const [newCsInfo, setNewCsInfo] = useState<CsInfoTypes>({
-    cs_code: '',
+    /*cs_code: '',
     cs_name: '',
     start_date: '',
     end_date: '',
     due_date: '',
     director: '',
     scene_status: '',
-    total_cuts: '',
+    total_cuts: '',*/
+
+    csCode: '',
+    csName: '',
+    startDate: '',
+    endDate: '',
+    dueDate: '',
+    director: '',
+    sceneStatus: '',
+    totalCuts: '',
   });
 
   function handleSubmit(e: { preventDefault: () => void }): void {
-    axios.post('http://localhost:4000/cutscenes', newCsInfo);
+    axios.post('http://localhost:8080/cutscenes', newCsInfo);
     setIsSettings(false);
     e.preventDefault();
   }
@@ -65,8 +74,8 @@ function CreateNewScene({ setIsSettings }: Props) {
         <div className='relative z-0 w-full mb-6 group'>
           <input
             type='text'
-            name='cs_code'
-            id='cs_code'
+            name='csCode'
+            id='csCode'
             className={`${tailInput}`}
             onChange={handleChange}
             required
@@ -76,8 +85,8 @@ function CreateNewScene({ setIsSettings }: Props) {
         <div className='relative z-0 w-full mb-6 group'>
           <input
             type='text'
-            name='cs_name'
-            id='cs_name'
+            name='csName'
+            id='csName'
             className={`${tailInput}`}
             onChange={handleChange}
             required
@@ -88,8 +97,8 @@ function CreateNewScene({ setIsSettings }: Props) {
           <div className='relative z-0 w-full mb-6 group'>
             <input
               type='date'
-              name='start_date'
-              id='start_date'
+              name='startDate'
+              id='startDate'
               className={`${tailInput}`}
               onChange={handleChange}
               required
@@ -99,8 +108,8 @@ function CreateNewScene({ setIsSettings }: Props) {
           <div className='relative z-0 w-full mb-6 group'>
             <input
               type='date'
-              name='end_date'
-              id='end_date'
+              name='endDate'
+              id='endDate'
               onChange={handleChange}
               className={`${tailInput}`}
             />
@@ -111,8 +120,8 @@ function CreateNewScene({ setIsSettings }: Props) {
           <div className='relative z-0 w-full mb-6 group'>
             <input
               type='date'
-              name='due_date'
-              id='due_date'
+              name='dueDate'
+              id='dueDate'
               onChange={handleChange}
               className={`${tailInput}`}
             />
@@ -121,8 +130,8 @@ function CreateNewScene({ setIsSettings }: Props) {
           <div className='relative z-0 w-full mb-6 group'>
             <input
               type='number'
-              name='total_cuts'
-              id='total_cuts'
+              name='totalCuts'
+              id='totalCuts'
               className={`${tailInput}`}
               onChange={handleChange}
               required
@@ -145,8 +154,8 @@ function CreateNewScene({ setIsSettings }: Props) {
           <div className='relative z-0 w-full mb-6 group'>
             <input
               type='text'
-              name='scene_status'
-              id='scene_status'
+              name='sceneStatus'
+              id='sceneStatus'
               className={`${tailInput}`}
               onChange={handleChange}
               required

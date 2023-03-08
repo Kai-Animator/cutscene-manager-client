@@ -4,22 +4,22 @@ import { useState } from 'react';
 import axios from 'axios';
 
 interface Props {
-  cs_code: string;
-  cut_name: string;
-  start_date: any;
-  end_date: any;
+  csCode: string;
+  cutName: string;
+  startDate: any;
+  endDate: any;
   animator: string;
-  cut_status: string;
+  cutStatus: string;
   setRefresh: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 function CutsCards({
-  cs_code,
-  cut_name,
-  start_date,
-  end_date,
+  csCode,
+  cutName,
+  startDate,
+  endDate,
   animator,
-  cut_status,
+  cutStatus,
   setRefresh
 }: Props) {
   const [isInput, setIsInput] = useState<{ [k: string]: boolean }>({
@@ -38,7 +38,7 @@ function CutsCards({
 
   async function handleDelete(e: any): Promise<void> {
     await axios.delete(
-      `http://localhost:4000/cutscenes/${cs_code}/cuts/${cut_name}`
+      `http://localhost:8080/cutscenes/${csCode}/cuts/${cutName}`
     );
     setRefresh(true)
     e.preventDefault();
@@ -49,43 +49,43 @@ function CutsCards({
       <th
         scope='row'
         id='name'
-        className='px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white hover:bg-gray-700 text-center'
+        className='px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white  text-center'
         onClick={handleEdit}
       >
-        {isInput.name ? <input type='text'></input> : cut_name}
+        {isInput.name ? <input type='text'></input> : cutName}
       </th>
       <td
         id='start'
-        className='px-6 py-4 hover:bg-gray-700 text-center'
+        className='px-6 py-4 text-center'
         onClick={handleEdit}
       >
-        {start_date
-          ? new Date(start_date).toLocaleDateString()
+        {startDate
+          ? new Date(startDate).toLocaleDateString()
           : 'To be Decided'}
       </td>
       <td
         id='end'
-        className='px-6 py-4 hover:bg-gray-700 text-center'
+        className='px-6 py-4 text-center'
         onClick={handleEdit}
       >
-        {end_date ? new Date(end_date).toLocaleDateString() : 'To be Decided'}
+        {endDate ? new Date(endDate).toLocaleDateString() : 'To be Decided'}
       </td>
       <td
         id='anim'
-        className='px-6 py-4 hover:bg-gray-700 text-center'
+        className='px-6 py-4 text-center'
         onClick={handleEdit}
       >
         {animator}
       </td>
       <td
         id='status'
-        className='px-6 py-4 hover:bg-gray-700 text-center'
+        className='px-6 py-4 text-center'
         onClick={handleEdit}
       >
-        {cut_status}
+        {cutStatus}
       </td>
       <td
-        className='px-6 py-4 hover:bg-gray-700 hover:text-gray-900 cursor-pointer text-center'
+        className='px-6 py-4 hover:text-gray-900 cursor-pointer text-center'
         onClick={handleDelete}
       >
         <FontAwesomeIcon icon={faTrash} className='scale-150' />

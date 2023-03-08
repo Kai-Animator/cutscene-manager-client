@@ -4,7 +4,7 @@ import CutsCards from './CutsCards';
 import Settings from './Settings';
 
 interface Props {
-  cs_code: string;
+  csCode: string;
   setIsSettings: React.Dispatch<React.SetStateAction<boolean>>;
   isSettings: boolean;
   setIsCsInfo: (i: boolean | string) => void;
@@ -18,7 +18,7 @@ const tailAddButton: string =
   'text-white bg-blue-500 w-1/4 rounded m-4 p-1 hover:bg-white hover:text-blue-500';
 
 function CutsceneInfo({
-  cs_code,
+  csCode,
   setIsSettings,
   isSettings,
   setIsCsInfo,
@@ -29,13 +29,13 @@ function CutsceneInfo({
   const [cutsInfo, setCutsInfo] = useState<any>(false);
 
   async function csData(): Promise<void> {
-    await axios(`http://localhost:4000/cutscenes/${cs_code}`).then((res) =>
+    await axios(`http://localhost:8080/cutscenes/${csCode}`).then((res) =>
       setCsInfo(res.data)
     );
   }
 
   async function getCuts(): Promise<void> {
-    await axios(`http://localhost:4000/cutscenes/${cs_code}/cuts`).then((res) =>
+    await axios(`http://localhost:8080/cutscenes/${csCode}/cuts`).then((res) =>
       setCutsInfo(res.data)
     );
     refresh && setRefresh(false)
@@ -117,7 +117,7 @@ function CutsceneInfo({
         </button>
       </div>
       {isSettings && (
-        <Settings setIsSettings={setIsSettings} cs_code={cs_code} setRefresh={setRefresh} />
+        <Settings setIsSettings={setIsSettings} csCode={csCode} setRefresh={setRefresh} />
       )}
     </div>
   );
