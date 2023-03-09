@@ -31,7 +31,7 @@ function Cutscenes({isSettings, setIsSettings, setRefresh}: Props) {
 
   async function getAllCutscenes(): Promise<void> {
     const allCutscenes: AxiosCs = await axios(
-      'http://localhost:8080/cutscenes'
+      'https://java-server-csmanager.onrender.com/cutscenes'
     );
     setAllCsInfo(allCutscenes.data);
   }

@@ -38,7 +38,7 @@ function CutsCards({
 
   async function handleDelete(e: any): Promise<void> {
     await axios.delete(
-      `http://localhost:8080/cutscenes/${csCode}/cuts/${cutName}`
+      `https://java-server-csmanager.onrender.com/cutscenes/${csCode}/cuts/${cutName}`
     );
     setRefresh(true)
     e.preventDefault();

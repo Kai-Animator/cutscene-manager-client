@@ -48,7 +48,7 @@ function CreateNewScene({ setIsSettings }: Props) {
   });
 
   function handleSubmit(e: { preventDefault: () => void }): void {
-    axios.post('http://localhost:8080/cutscenes', newCsInfo);
+    axios.post('https://java-server-csmanager.onrender.com/cutscenes', newCsInfo);
     setIsSettings(false);
     e.preventDefault();
   }

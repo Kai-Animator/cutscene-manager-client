@@ -29,13 +29,13 @@ function CutsceneInfo({
   const [cutsInfo, setCutsInfo] = useState<any>(false);
 
   async function csData(): Promise<void> {
-    await axios(`http://localhost:8080/cutscenes/${csCode}`).then((res) =>
+    await axios(`https://java-server-csmanager.onrender.com/cutscenes/${csCode}`).then((res) =>
       setCsInfo(res.data)
     );
   }
 
   async function getCuts(): Promise<void> {
-    await axios(`http://localhost:8080/cutscenes/${csCode}/cuts`).then((res) =>
+    await axios(`https://java-server-csmanager.onrender.com/cutscenes/${csCode}/cuts`).then((res) =>
       setCutsInfo(res.data)
     );
     refresh && setRefresh(false)
