@@ -29,16 +29,16 @@ function CutsceneInfo({
   const [cutsInfo, setCutsInfo] = useState<any>(false);
 
   async function csData(): Promise<void> {
-    await axios(`https://java-server-csmanager.onrender.com/cutscenes/${csCode}`).then((res) =>
-      setCsInfo(res.data)
-    );
+    await axios(
+      `https://java-server-csmanager.onrender.com/cutscenes/${csCode}`
+    ).then((res) => setCsInfo(res.data));
   }
 
   async function getCuts(): Promise<void> {
-    await axios(`https://java-server-csmanager.onrender.com/cutscenes/${csCode}/cuts`).then((res) =>
-      setCutsInfo(res.data)
-    );
-    refresh && setRefresh(false)
+    await axios(
+      `https://java-server-csmanager.onrender.com/cutscenes/${csCode}/cuts`
+    ).then((res) => setCutsInfo(res.data));
+    refresh && setRefresh(false);
   }
 
   useEffect(() => {
@@ -53,12 +53,22 @@ function CutsceneInfo({
     getCuts();
   }, [refresh]);
 
-  function handleNewCut() {
+  function handleNewCut(): void {
     setIsSettings(true);
   }
 
-  function handleBack() {
+  function handleBack(): void {
     setIsCsInfo(false);
+  }
+
+  async function handleDelete(e: any): Promise<void> {
+    if (window.confirm(`Are you sure you want to delete ${csCode}?`)) {
+      await axios.delete(
+        `https://java-server-csmanager.onrender.com/cutscenes/${csCode}`
+      );
+      setIsCsInfo(false);
+    }
+    e.preventDefault();
   }
 
   return (
@@ -111,13 +121,23 @@ function CutsceneInfo({
         </button>
         <button
           className={`add-cs-button ${tailBackButton}`}
+          onClick={handleDelete}
+        >
+          Delete this Scene.
+        </button>
+        <button
+          className={`add-cs-button ${tailBackButton}`}
           onClick={handleBack}
         >
           Back to Cutscenes
         </button>
       </div>
       {isSettings && (
-        <Settings setIsSettings={setIsSettings} csCode={csCode} setRefresh={setRefresh} />
+        <Settings
+          setIsSettings={setIsSettings}
+          csCode={csCode}
+          setRefresh={setRefresh}
+        />
       )}
     </div>
   );

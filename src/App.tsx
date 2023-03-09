@@ -32,7 +32,7 @@ function Home() {
   }
   useEffect(() => {
     check();
-  }, [login]);
+  }, []);
 
   if (login === false) {
     return (

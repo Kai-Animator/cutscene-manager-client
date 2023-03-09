@@ -21,15 +21,16 @@ function Signup({ setIsSignup, setLogin, setUserInfo }: Props) {
   function handleSubmit(e: any): void {
     e.preventDefault();
     if (e.target.password.value === e.target.confirm_password.value) {
-        createUserWithEmailAndPassword(
-          auth,
-          e.target.email.value,
-          e.target.password.value
-        )
+      createUserWithEmailAndPassword(
+        auth,
+        e.target.email.value,
+        e.target.password.value
+      )
         .then((user: any): void => {
-            setUserInfo(user.uid);
-            setLogin(true);
-          })
+          setUserInfo(user.uid);
+          localStorage.setItem('user', user.uid);
+          setLogin(true);
+        })
         .catch((error: { code: any; message: any }) => {
           var errorCode = error.code;
           var errorMessage = error.message;

@@ -31,6 +31,7 @@ function Login({ setIsSignup, setUserInfo, setLogin }: Props) {
     )
       .then((userCredential: {user: any}) => {
           setLogin(userCredential.user.uid);
+          localStorage.setItem('user', userCredential.user.uid)
           setLogin(true);
         }
       )
