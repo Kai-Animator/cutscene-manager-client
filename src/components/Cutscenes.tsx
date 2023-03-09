@@ -17,12 +17,12 @@ interface AxiosCs {
 }
 
 interface Props {
-  isSettings: boolean;
+  isSettings: boolean
   setIsSettings: React.Dispatch<React.SetStateAction<boolean>>;
   setRefresh: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-function Cutscenes({ isSettings, setIsSettings, setRefresh }: Props) {
+function Cutscenes({isSettings, setIsSettings, setRefresh}: Props) {
   const [allCsInfo, setAllCsInfo] = useState<any | null>(null);
 
   useEffect(() => {
@@ -30,9 +30,10 @@ function Cutscenes({ isSettings, setIsSettings, setRefresh }: Props) {
   }, [isSettings]);
 
   async function getAllCutscenes(): Promise<void> {
-    await fetch('https://java-server-csmanager.onrender.com/cutscenes').then(
-      (data) => setAllCsInfo(data.body)
+    const allCutscenes: AxiosCs = await axios(
+      'https://java-server-csmanager.onrender.com/cutscenes'
     );
+    setAllCsInfo(allCutscenes.data);
   }
 
   function handleNewScene(e: MouseEvent): void {
@@ -65,9 +66,7 @@ function Cutscenes({ isSettings, setIsSettings, setRefresh }: Props) {
           </tbody>
         </table>
       </div>
-      {isSettings && (
-        <Settings setIsSettings={setIsSettings} setRefresh={setRefresh} />
-      )}
+      {isSettings && <Settings setIsSettings={setIsSettings} setRefresh={setRefresh}/>}
       <button
         className={`add-cs-button ${tailAddButton}`}
         onClick={handleNewScene}
