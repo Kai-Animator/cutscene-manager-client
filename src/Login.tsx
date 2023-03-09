@@ -1,7 +1,7 @@
-import firebase from 'firebase/app'
-const fire = require('firebase/auth');
+import { initializeApp } from 'firebase/app';
+import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 
-const app = firebase.initializeApp({
+const app = initializeApp({
   apiKey: 'AIzaSyAHujC21hbzGiX8iL7UqxdeehLZ19fxrRo',
   authDomain: 'mylibrary-f9f02.firebaseapp.com',
   projectId: 'mylibrary-f9f02',
@@ -10,7 +10,7 @@ const app = firebase.initializeApp({
   appId: '1:840845900664:web:7df9bf6371a592a83ae68d',
 });
 
-const auth = fire.getAuth(app);
+const auth = getAuth(app);
 
 interface Props {
   setLogin: React.Dispatch<React.SetStateAction<boolean>>;
@@ -24,19 +24,22 @@ function Login({ setIsSignup, setUserInfo, setLogin }: Props) {
   }
 
   function handleForm(e: any): void {
-  fire
-    .signInWithEmailAndPassword(auth, e.target.email.value, e.target.password.value)
-    .then((userCredential: { user: { uid: boolean | ((prevState: boolean) => boolean); }; }): void => {
-        setLogin(userCredential.user.uid)
-        setLogin(true)
-    })
-    .catch((error: { code: any; message: any; }) => {
-      const errorCode = error.code;
-      const errorMessage = error.message;
-    });
-    e.preventDefault()
+    signInWithEmailAndPassword(
+      auth,
+      e.target.email.value,
+      e.target.password.value
+    )
+      .then((userCredential: {user: any}) => {
+          setLogin(userCredential.user.uid);
+          setLogin(true);
+        }
+      )
+      .catch((error: { code: any; message: any }) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+      });
+    e.preventDefault();
   }
-
 
   return (
     <section className='bg-gray-50 dark:bg-gray-900'>

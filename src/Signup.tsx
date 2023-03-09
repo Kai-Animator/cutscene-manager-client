@@ -1,7 +1,7 @@
-import firebase from 'firebase/app'
-const fire = require('firebase/auth');
+import { initializeApp } from 'firebase/app';
+import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
 
-const app = firebase.initializeApp({
+const app = initializeApp({
   apiKey: 'AIzaSyAHujC21hbzGiX8iL7UqxdeehLZ19fxrRo',
   authDomain: 'mylibrary-f9f02.firebaseapp.com',
   projectId: 'mylibrary-f9f02',
@@ -16,33 +16,20 @@ interface Props {
   setUserInfo: any;
 }
 
-const auth = fire.getAuth(app);
+const auth = getAuth(app);
 function Signup({ setIsSignup, setLogin, setUserInfo }: Props) {
   function handleSubmit(e: any): void {
     e.preventDefault();
     if (e.target.password.value === e.target.confirm_password.value) {
-      fire
-        .createUserWithEmailAndPassword(
+        createUserWithEmailAndPassword(
           auth,
           e.target.email.value,
           e.target.password.value
         )
-        .then(async (user: { uid: string; email: string }) => {
-          await fetch('http://localhost:4000/user', {
-            headers: {
-              Accept: 'application/json',
-              'Content-Type': 'application/json',
-            },
-            method: 'POST',
-            body: JSON.stringify({
-              user_id: user.uid,
-              email: user.email,
-            }),
-          }).then((user: any): void => {
+        .then((user: any): void => {
             setUserInfo(user.uid);
             setLogin(true);
-          });
-        })
+          })
         .catch((error: { code: any; message: any }) => {
           var errorCode = error.code;
           var errorMessage = error.message;
