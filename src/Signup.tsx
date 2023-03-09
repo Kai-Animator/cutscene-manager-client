@@ -1,4 +1,4 @@
-const firebase = require('firebase/app');
+import firebase from 'firebase/app'
 const fire = require('firebase/auth');
 
 const app = firebase.initializeApp({
