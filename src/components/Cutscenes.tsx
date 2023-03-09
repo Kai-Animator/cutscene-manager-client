@@ -34,6 +34,7 @@ function Cutscenes({isSettings, setIsSettings, setRefresh}: Props) {
       'https://java-server-csmanager.onrender.com/cutscenes'
     );
     setAllCsInfo(allCutscenes.data);
+    console.log(allCsInfo)
   }
 
   function handleNewScene(e: MouseEvent): void {
