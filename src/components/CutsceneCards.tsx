@@ -2,28 +2,28 @@ import { useContext } from 'react';
 import { DisplayContext } from '../App';
 
 interface Props {
-  csName: string;
-  csCode: string;
-  sceneStatus: string;
+  cs_name: string;
+  cs_code: string;
+  scene_status: string;
 }
 
-function CutsceneCards({ csName, csCode, sceneStatus }: Props) {
+function CutsceneCards({ cs_name, cs_code, scene_status }: Props) {
   const { setIsCsInfo } = useContext(DisplayContext);
 
   function handleChange(): void {
-    setIsCsInfo(csCode);
+    setIsCsInfo(cs_code);
   }
 
   return (
             <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 mt-2 mb-2 cursor-pointer" onClick={handleChange}>
                 <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                   {csCode}
+                   {cs_code}
                 </th>
                 <td className="px-6 py-4">
-                    {csName}
+                    {cs_name}
                 </td>
                 <td className="px-6 py-4">
-                    {sceneStatus}
+                    {scene_status}
                 </td>
             </tr>
   );

@@ -4,7 +4,7 @@ import CutsCards from './CutsCards';
 import Settings from './Settings';
 
 interface Props {
-  csCode: string;
+  cs_code: string;
   setIsSettings: React.Dispatch<React.SetStateAction<boolean>>;
   isSettings: boolean;
   setIsCsInfo: (i: boolean | string) => void;
@@ -18,7 +18,7 @@ const tailAddButton: string =
   'text-white bg-blue-500 w-1/4 rounded m-4 p-1 hover:bg-white hover:text-blue-500';
 
 function CutsceneInfo({
-  csCode,
+  cs_code,
   setIsSettings,
   isSettings,
   setIsCsInfo,
@@ -30,13 +30,13 @@ function CutsceneInfo({
 
   async function csData(): Promise<void> {
     await axios(
-      `https://java-server-csmanager.onrender.com/cutscenes/${csCode}`
+      `http://68.183.190.129/cutscenes/${cs_code}`
     ).then((res) => setCsInfo(res.data));
   }
 
   async function getCuts(): Promise<void> {
     await axios(
-      `https://java-server-csmanager.onrender.com/cutscenes/${csCode}/cuts`
+      `http://68.183.190.129/cutscenes/${cs_code}/cuts`
     ).then((res) => setCutsInfo(res.data));
     refresh && setRefresh(false);
   }
@@ -62,9 +62,9 @@ function CutsceneInfo({
   }
 
   async function handleDelete(e: any): Promise<void> {
-    if (window.confirm(`Are you sure you want to delete ${csCode}?`)) {
+    if (window.confirm(`Are you sure you want to delete ${cs_code}?`)) {
       await axios.delete(
-        `https://java-server-csmanager.onrender.com/cutscenes/${csCode}`
+        `http://68.183.190.129/cutscenes/${cs_code}`
       );
       setIsCsInfo(false);
     }
@@ -135,7 +135,7 @@ function CutsceneInfo({
       {isSettings && (
         <Settings
           setIsSettings={setIsSettings}
-          csCode={csCode}
+          cs_code={cs_code}
           setRefresh={setRefresh}
         />
       )}

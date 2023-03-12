@@ -6,7 +6,7 @@ import { useState } from 'react';
 
 interface Props {
   setIsSettings: React.Dispatch<React.SetStateAction<boolean>>;
-  csCode: string | undefined;
+  cs_code: string | undefined;
   setRefresh: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
@@ -18,28 +18,28 @@ const tailButton: string =
   'text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800';
 
 interface cutTypes {
-  csCode: any;
-  cutName: string;
-  startDate: any;
-  endDate: any;
+  cs_code: any;
+  cut_name: string;
+  start_date: any;
+  end_date: any;
   animator: string;
-  cutStatus: string;
+  cut_status: string;
 }
 
-function CreateNewCut({ setIsSettings, csCode , setRefresh}: Props) {
+function CreateNewCut({ setIsSettings, cs_code , setRefresh}: Props) {
   const [newCutInfo, setNewCutInfo] = useState<cutTypes>({
-    csCode: '',
-    cutName: '',
-    startDate: '',
-    endDate: '',
+    cs_code: '',
+    cut_name: '',
+    start_date: '',
+    end_date: '',
     animator: '',
-    cutStatus: '',
+    cut_status: '',
   });
 
   function handleSubmit(e: { preventDefault: () => void }): void {
     const newObj: any = newCutInfo;
-    newObj['csCode'] = csCode
-    axios.post(`https://java-server-csmanager.onrender.com/cutscenes/${csCode}/cuts`, newObj);
+    newObj['cs_code'] = cs_code
+    axios.post(`http://68.183.190.129/cutscenes/${cs_code}/cuts`, newObj);
     setIsSettings(false);
     setRefresh(true)
     e.preventDefault();
@@ -62,8 +62,8 @@ function CreateNewCut({ setIsSettings, csCode , setRefresh}: Props) {
         <div className='relative z-0 w-full mb-6 group'>
           <input
             type='text'
-            name='cutName'
-            id='cutName'
+            name='cut_name'
+            id='cut_name'
             className={`${tailInput}`}
             onChange={handleChange}
             required
@@ -83,8 +83,8 @@ function CreateNewCut({ setIsSettings, csCode , setRefresh}: Props) {
         <div className='relative z-0 w-full mb-6 group'>
           <input
             type='text'
-            name='cutStatus'
-            id='cutStatus'
+            name='cut_status'
+            id='cut_status'
             className={`${tailInput}`}
             onChange={handleChange}
             required
@@ -95,8 +95,8 @@ function CreateNewCut({ setIsSettings, csCode , setRefresh}: Props) {
           <div className='relative z-0 w-full mb-6 group'>
             <input
               type='date'
-              name='startDate'
-              id='startDate'
+              name='start_date'
+              id='start_date'
               onChange={handleChange}
               className={`${tailInput}`}
             />
@@ -105,8 +105,8 @@ function CreateNewCut({ setIsSettings, csCode , setRefresh}: Props) {
           <div className='relative z-0 w-full mb-6 group'>
             <input
               type='date'
-              name='endDate'
-              id='endDate'
+              name='end_date'
+              id='end_date'
               className={`${tailInput}`}
               onChange={handleChange}
             />

@@ -60,7 +60,7 @@ function Home() {
           {isCsInfo ? (
             <CutsceneInfo
               setIsCsInfo={setIsCsInfo}
-              csCode={`${isCsInfo}`}
+              cs_code={`${isCsInfo}`}
               setIsSettings={setIsSettings}
               isSettings={isSettings}
               setRefresh={setRefresh}

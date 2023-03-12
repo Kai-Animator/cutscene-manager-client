@@ -4,22 +4,22 @@ import { useState } from 'react';
 import axios from 'axios';
 
 interface Props {
-  csCode: string;
-  cutName: string;
-  startDate: any;
-  endDate: any;
+  cs_code: string;
+  cut_name: string;
+  start_date: any;
+  end_date: any;
   animator: string;
-  cutStatus: string;
+  cut_status: string;
   setRefresh: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 function CutsCards({
-  csCode,
-  cutName,
-  startDate,
-  endDate,
+  cs_code,
+  cut_name,
+  start_date,
+  end_date,
   animator,
-  cutStatus,
+  cut_status,
   setRefresh
 }: Props) {
   const [isInput, setIsInput] = useState<{ [k: string]: boolean }>({
@@ -38,7 +38,7 @@ function CutsCards({
 
   async function handleDelete(e: any): Promise<void> {
     await axios.delete(
-      `https://java-server-csmanager.onrender.com/cutscenes/${csCode}/cuts/${cutName}`
+      `http://68.183.190.129/cutscenes/${cs_code}/cuts/${cut_name}`
     );
     setRefresh(true)
     e.preventDefault();
@@ -52,15 +52,15 @@ function CutsCards({
         className='px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white  text-center'
         onClick={handleEdit}
       >
-        {isInput.name ? <input type='text'></input> : cutName}
+        {isInput.name ? <input type='text'></input> : cut_name}
       </th>
       <td
         id='start'
         className='px-6 py-4 text-center'
         onClick={handleEdit}
       >
-        {startDate
-          ? new Date(startDate).toLocaleDateString()
+        {start_date
+          ? new Date(start_date).toLocaleDateString()
           : 'To be Decided'}
       </td>
       <td
@@ -68,7 +68,7 @@ function CutsCards({
         className='px-6 py-4 text-center'
         onClick={handleEdit}
       >
-        {endDate ? new Date(endDate).toLocaleDateString() : 'To be Decided'}
+        {end_date ? new Date(end_date).toLocaleDateString() : 'To be Decided'}
       </td>
       <td
         id='anim'
@@ -82,7 +82,7 @@ function CutsCards({
         className='px-6 py-4 text-center'
         onClick={handleEdit}
       >
-        {cutStatus}
+        {cut_status}
       </td>
       <td
         className='px-6 py-4 hover:text-gray-900 cursor-pointer text-center'

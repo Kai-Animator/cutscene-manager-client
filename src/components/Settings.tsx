@@ -5,7 +5,7 @@ import CreateNewScene from './CreateNewScene';
 
 interface Props {
   setIsSettings: React.Dispatch<React.SetStateAction<boolean>>;
-  csCode?: string;
+  cs_code?: string;
   setRefresh: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
@@ -14,7 +14,7 @@ const tailBlackOpacity: string =
 const tailSettingsContainer: string =
   'bg-white relative h-auto w-1/2 rounded-md text-black';
 
-function Settings({ setIsSettings, csCode, setRefresh}: Props) {
+function Settings({ setIsSettings, cs_code, setRefresh}: Props) {
   const { isCsInfo } = useContext(DisplayContext);
 
   return (
@@ -22,7 +22,7 @@ function Settings({ setIsSettings, csCode, setRefresh}: Props) {
       <div className={`settings-container ${tailSettingsContainer}`}>
         {
         isCsInfo ? (
-          <CreateNewCut setIsSettings={setIsSettings} csCode={csCode} setRefresh={setRefresh}/>
+          <CreateNewCut setIsSettings={setIsSettings} cs_code={cs_code} setRefresh={setRefresh}/>
         ) : (
           <CreateNewScene setIsSettings={setIsSettings} />
         )

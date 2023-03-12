@@ -10,9 +10,9 @@ const tailAddButton: string =
 
 interface AxiosCs {
   data: {
-    csCode: string;
-    csName: string;
-    sceneStatus: string;
+    cs_code: string;
+    cs_name: string;
+    scene_status: string;
   }[];
 }
 
@@ -31,7 +31,7 @@ function Cutscenes({isSettings, setIsSettings, setRefresh}: Props) {
 
   async function getAllCutscenes(): Promise<void> {
     const allCutscenes: AxiosCs = await axios(
-      'https://java-server-csmanager.onrender.com/cutscenes'
+      'http://68.183.190.129/cutscenes'
     );
     setAllCsInfo(allCutscenes.data);
   }
